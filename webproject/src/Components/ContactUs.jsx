@@ -16,6 +16,8 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import NavBar from "./NavBar";
 import styled from "@emotion/styled";
+import axios from 'axios'
+import { useState } from 'react';
 
 const StyledTypography = styled(Typography)({
   fontWeight: "bold",
@@ -33,6 +35,37 @@ const StyledTypography1 = styled(Typography)({
 });
 
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("http://localhost:3001/api/admin/contactAdmin", formData);
+      console.log(response.data); // Logging the response from the backend
+      // Clear the form after successful submission if needed
+      setFormData({
+        name: "",
+        email: "",
+        message: ""
+      })
+    } catch (error) {
+      console.error('Error sending message:', error);
+      // Handle error
+    }
+  };
+
+
+
+  
   return (
     <div>
       <NavBar />
@@ -56,7 +89,7 @@ const ContactUs = () => {
             </Grid>
             <Grid item xs={6} md={6}>
               <StyledContactInfoBox>
-                <StyledTypography1 variant="h5" sx={{ color: "#1976d2" }}>
+                <StyledTypography1 variant="h5" sx={{ color: "#1976d2" ,textAlign:"center"}}>
                   Contact Information
                 </StyledTypography1>
                 <StyledTypography1 sx={{ color: "#1976d2" }}>
@@ -80,7 +113,7 @@ const ContactUs = () => {
                   >
                     Visit Facebook Page
                   </a>
-                  <WhatsAppIcon sx={{ color: "#1976d2" }} />
+                  <WhatsAppIcon sx={{ color: "green" }} />
                   <a
                     href="https://wa.me/your-phone-number"
                     style={{ color: "#1976d2", textDecoration: "none" }}
@@ -116,7 +149,10 @@ const ContactUs = () => {
                       label="Name"
                       variant="outlined"
                       fullWidth
+                     name="name"
                       required
+                      value={formData.name}
+                      onChange={handleChange}
                       InputProps={{
                         startAdornment: (
                           <ContactMailIcon style={{ marginRight: 8 }} />
@@ -127,7 +163,10 @@ const ContactUs = () => {
                       label="Email"
                       variant="outlined"
                       fullWidth
+                      name="email"
                       required
+                      value={formData.email}
+                      onChange={handleChange}
                       InputProps={{
                         startAdornment: (
                           <ContactMailIcon style={{ marginRight: 8 }} />
@@ -140,12 +179,17 @@ const ContactUs = () => {
                       multiline
                       rows={4}
                       fullWidth
+                     name="message"
                       required
+                      value={formData.message}
+                      onChange={handleChange}
                     />
                     <StyledButton
                       variant="contained"
                       endIcon={<SendIcon />}
                       size="large"
+                      onClick={handleSubmit}
+                     
                     >
                       Send Message
                     </StyledButton>

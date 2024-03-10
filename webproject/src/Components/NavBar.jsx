@@ -1,8 +1,12 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { Navigate, useNavigate } from "react-router-dom";
+
 
 const NavBar = () => {
+    const navigate =useNavigate()
+
     const StyledAppBar = styled(AppBar)({
         backgroundColor: 'white',
         boxShadow: 'none',
@@ -52,10 +56,11 @@ const NavBar = () => {
                 </StyledTypography>
          
             <CenteredToolbar>
+            <StyledButton color="inherit" onClick={()=>{navigate('/home')}} >Home</StyledButton>
                 <StyledButton color="inherit" >Features</StyledButton>
                 <StyledButton color="inherit">Download</StyledButton>
                 <StyledButton color="inherit">About</StyledButton>
-                <StyledButton color="inherit">Contact</StyledButton>
+                <StyledButton color="inherit" onClick={()=>{navigate('/contact')}}>Contact</StyledButton>
             </CenteredToolbar>
             <RightAlignedToolbar>
                 <StyledButton color="inherit">Sign In</StyledButton>
