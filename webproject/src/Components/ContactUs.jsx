@@ -16,8 +16,8 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import NavBar from "./NavBar";
 import styled from "@emotion/styled";
-import axios from 'axios'
-import { useState } from 'react';
+import axios from "axios";
+import { useState } from "react";
 
 const StyledTypography = styled(Typography)({
   fontWeight: "bold",
@@ -38,7 +38,7 @@ const ContactUs = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
 
   const handleChange = (e) => {
@@ -49,23 +49,22 @@ const ContactUs = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/api/admin/contactAdmin", formData);
-      console.log(response.data); // Logging the response from the backend
-      // Clear the form after successful submission if needed
+      const response = await axios.post(
+        "http://localhost:3001/api/admin/contactAdmin",
+        formData
+      );
+      console.log(response.data);
+
       setFormData({
         name: "",
         email: "",
-        message: ""
-      })
+        message: "",
+      });
     } catch (error) {
-      console.error('Error sending message:', error);
-      // Handle error
+      console.error("Error sending message:", error);
     }
   };
 
-
-
-  
   return (
     <div>
       <NavBar />
@@ -77,19 +76,22 @@ const ContactUs = () => {
         <Container
           maxWidth="lg"
           sx={{
-            paddingTop: "60px", // Adjusted padding top
+            paddingTop: "60px",
             paddingBottom: "120px",
           }}
         >
           <Grid container spacing={4} justifyContent="center">
             <Grid item xs={12}>
-              <StyledTypography sx={{ textAlign: 'center' }}>
+              <StyledTypography sx={{ textAlign: "center" }}>
                 Send Us a Message
               </StyledTypography>
             </Grid>
             <Grid item xs={6} md={6}>
               <StyledContactInfoBox>
-                <StyledTypography1 variant="h5" sx={{ color: "#1976d2" ,textAlign:"center"}}>
+                <StyledTypography1
+                  variant="h5"
+                  sx={{ color: "#1976d2", textAlign: "center" }}
+                >
                   Contact Information
                 </StyledTypography1>
                 <StyledTypography1 sx={{ color: "#1976d2" }}>
@@ -149,7 +151,7 @@ const ContactUs = () => {
                       label="Name"
                       variant="outlined"
                       fullWidth
-                     name="name"
+                      name="name"
                       required
                       value={formData.name}
                       onChange={handleChange}
@@ -179,7 +181,7 @@ const ContactUs = () => {
                       multiline
                       rows={4}
                       fullWidth
-                     name="message"
+                      name="message"
                       required
                       value={formData.message}
                       onChange={handleChange}
@@ -189,7 +191,6 @@ const ContactUs = () => {
                       endIcon={<SendIcon />}
                       size="large"
                       onClick={handleSubmit}
-                     
                     >
                       Send Message
                     </StyledButton>
@@ -213,7 +214,7 @@ const StyledBox = styled(Box)({
   maxWidth: "500px",
   margin: "0 auto",
   border: "2px solid #ddd",
-  height: "100%", // Set the height to 100%
+  height: "100%",
 });
 
 const StyledContactInfoBox = styled(Box)({
@@ -224,7 +225,7 @@ const StyledContactInfoBox = styled(Box)({
   border: "2px solid #ddd",
   maxWidth: "500px",
   margin: "0 auto",
-  height: "85%", // Set the height to 100%
+  height: "85%",
 });
 
 const StyledButton = styled(Button)({
